@@ -1,7 +1,7 @@
 from flask import Flask, request, render_template
 app = Flask(__name__)
 
-LEDControl = {};
+LEDControl = {'LED State':'Off'};
 
 @app.route('/')
 def hello_world():
@@ -31,8 +31,11 @@ def feed():
 
 @app.route('/toggle', methods=['POST'])
 def toggle():
-    LEDControl['LED State'] = 'Off'
-    return 'hello_world'
+    if LEDControl['LED State'] == 'Off':
+        LEDControl['LED State'] = 'On'
+    else:
+        LEDControl['LED State'] = 'Off'
+    return 'LED State is now whatever the fuck you wanted'
 
 @app.route('/state', methods=['POST','GET'])
 def state():
