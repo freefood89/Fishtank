@@ -1,11 +1,11 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template , send_file
 app = Flask(__name__)
 
 LEDControl = {'LED State':'Off'};
 
 @app.route('/')
 def hello_world():
-    return 'Hello World!'
+    return 'Welcome to the Fish. Tank.!'
 
 @app.route('/login', methods=['POST','GET'])
 def login():
@@ -34,13 +34,24 @@ def toggle():
 
 @app.route('/feed', methods=['POST'])
 def feed():
-    error = None
     if request.method == 'POST':
         return toggle()
 
 @app.route('/state', methods=['POST','GET'])
 def state():
     return LEDControl['LED State']
+
+@app.route('/uploadImage', methods=['POST'])
+def uploadImage():
+    data = request.get_data()
+    newFileByteArray = bytearray(data)
+    with open('test.jpeg','wb') as newFile:
+            newFile.write(data)
+    return 'Image Sent!'
+
+@app.route('/recentImage')
+def recentImage():
+     return send_file('test.jpeg', mimetype='image/gif')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
