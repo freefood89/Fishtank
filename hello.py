@@ -1,11 +1,25 @@
 from flask import Flask, request, render_template , send_file
-app = Flask(__name__)
+import json
+import random
 
+app = Flask(__name__)
+SENSORS = ['a','b','c']
 LEDControl = {'LED State':'Off'};
 
 @app.route('/')
 def hello_world():
     return 'Welcome to the Fish. Tank.!'
+
+@app.route('/sensor')
+def send_data():
+    d = {}
+    if request.args:
+        pathParams = request.args.to_dict()
+        for k in iter(request.args):
+            if k in SENSORS and pathParams[k] == 'true':
+                d[k] = random.randint(1,10)
+    print(d)
+    return json.dumps(d)
 
 @app.route('/dashboard')
 def show_dashboard():
