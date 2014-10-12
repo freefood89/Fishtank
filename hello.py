@@ -7,6 +7,10 @@ LEDControl = {'LED State':'Off'};
 def hello_world():
     return 'Welcome to the Fish. Tank.!'
 
+@app.route('/dashboard')
+def show_dashboard():
+    return render_template('dashboard.html')
+
 @app.route('/login', methods=['POST','GET'])
 def login():
     error = None
