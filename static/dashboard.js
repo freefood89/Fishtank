@@ -1,11 +1,12 @@
 $(document).ready(function(){
+    var alertbox = $('#check').button();
+    var sensorbox = $('#sensor').button();
+    
     setInterval(function(){
-        var alertbox = $('#check')[0];
-        var sensorbox = $('#sensor')[0];
-        if (alertbox.checked){
+        if (alertbox[0].checked){
             alert('hello');
         }
-        if (sensorbox.checked){
+        if (sensorbox[0].checked){
             $.get("sensor?a=true&b=true", function(data){
                 var sensorData = ""
                 $.each( data, function(k, v){
