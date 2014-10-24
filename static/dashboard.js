@@ -17,3 +17,16 @@ $(document).ready(function(){
         }
     }, 3000);
 });
+
+var now = (new Date()).getTime();
+var data = [[[now,1],[now+100000,2],[now+200000,3],[now+300000,2]]];
+var options = {
+    xaxis: {
+        mode: "time",
+        timeformat: "%m/%d %H:%M"
+    },
+    series: {
+        lines: {show: true}
+    }
+};
+$.plot($("#placeholder"),data,options);
