@@ -13,12 +13,12 @@ def hello_world():
 @app.route('/sensor')
 def send_data():
     d = {}
-    if request.args:
-        pathParams = request.args.to_dict()
-        for k in iter(request.args):
-            if k in SENSORS and pathParams[k] == 'true':
-                d[k] = random.randint(1,10)
-    print(d)
+    if not request.args:
+        return json.dumps(d)
+    pathParams = request.args.to_dict()
+    for k in iter(request.args):
+        if k in SENSORS and pathParams[k] == 'true':
+            d[k] = random.randint(1,10)
     return json.dumps(d)
 
 @app.route('/dashboard')
