@@ -1,6 +1,8 @@
 from flask import Flask, request, render_template , send_file
 import json
 import random
+import calendar
+import datetime
 
 app = Flask(__name__)
 SENSORS = ['a','b','c']
@@ -12,15 +14,16 @@ def hello_world():
 
 @app.route('/sensor/<sensor_id>/')
 def sensor_data(sensor_id):
-    print('entered')
     data = {}
     numResults = 1
     params = request.args.to_dict()
-    print(params)
     if params['n'] and int(params['n'])>0 and int(params['n'])<21:
         numResults = int(params['n'])
-    print(sensor_id, numResults)
-    data[sensor_id] = [random.randint(1,10) for x in range(1,numResults)]
+    
+    now = calendar.timegm(datetime.datetime.now().timetuple())*1000
+    print(now)
+    dates = [now - i*100000 for i in range(numResults)]
+    data[sensor_id] = [[dates[x],random.randint(1,10)] for x in range(numResults)]
     print(data)
     return json.dumps(data)
 

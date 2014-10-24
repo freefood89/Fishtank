@@ -8,7 +8,8 @@ $(document).ready(function(){
         }
         if (sensorbox[0].checked){
             $.get("sensor/oxygen?n=10", function(data){
-                $("p").text(JSON.stringify(data));
+                $("p").text(JSON.stringify(data.oxygen));
+                $.plot($("#placeholder"),[data.oxygen],options);
             },"json");
         }
     }, 3000);
