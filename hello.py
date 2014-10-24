@@ -10,16 +10,19 @@ LEDControl = {'LED State':'Off'};
 def hello_world():
     return 'Welcome to the Fish. Tank.!'
 
-@app.route('/sensor')
-def send_data():
-    d = {}
-    if not request.args:
-        return json.dumps(d)
-    pathParams = request.args.to_dict()
-    for k in iter(request.args):
-        if k in SENSORS and pathParams[k] == 'true':
-            d[k] = random.randint(1,10)
-    return json.dumps(d)
+@app.route('/sensor/<sensor_id>/')
+def sensor_data(sensor_id):
+    print('entered')
+    data = {}
+    numResults = 1
+    params = request.args.to_dict()
+    print(params)
+    if params['n'] and int(params['n'])>0 and int(params['n'])<21:
+        numResults = int(params['n'])
+    print(sensor_id, numResults)
+    data[sensor_id] = [random.randint(1,10) for x in range(1,numResults)]
+    print(data)
+    return json.dumps(data)
 
 @app.route('/dashboard')
 def show_dashboard():

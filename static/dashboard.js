@@ -7,12 +7,8 @@ $(document).ready(function(){
             alert('hello');
         }
         if (sensorbox[0].checked){
-            $.get("sensor?a=true&b=true", function(data){
-                var sensorData = ""
-                $.each( data, function(k, v){
-                    sensorData = sensorData + k + ": " + v + "\n";
-                });
-                $("p").text(sensorData);
+            $.get("sensor/oxygen?n=10", function(data){
+                $("p").text(JSON.stringify(data));
             },"json");
         }
     }, 3000);
