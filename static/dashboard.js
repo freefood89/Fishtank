@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var alertbox = $('#check').button();
     var sensorbox = $('#sensor').button();
+    var toggleButon = $('#toggle').button();
     
     setInterval(function(){
         if (alertbox[0].checked){
@@ -27,3 +28,16 @@ var options = {
     }
 };
 $.plot($("#placeholder"),data,options);
+
+function ledToggle() {
+    $.ajax({
+        url:"toggle",
+        type: 'PUT',
+        success: function(response){
+            alert( "Success!" );
+            }
+        });
+};
+
+
+
