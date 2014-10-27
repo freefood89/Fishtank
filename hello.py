@@ -6,7 +6,7 @@ import datetime
 
 app = Flask(__name__)
 SENSORS = ['a','b','c']
-LEDControl = {'LED State':'Off'};
+deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
 
 @app.route('/')
 def hello_world():
@@ -19,7 +19,7 @@ def sensor_data(sensor_id):
     params = request.args.to_dict()
     if params['n'] and int(params['n'])>0 and int(params['n'])<21:
         numResults = int(params['n'])
-    
+
     now = calendar.timegm(datetime.datetime.now().timetuple())*1000
     print(now)
     dates = [now - i*100000 for i in range(numResults)]
@@ -48,17 +48,28 @@ def valid_login(username, password):
     print((username, password))
     return True
 
-@app.route('/toggle', methods=['PUT'])
-def toggle():
-    if LEDControl['LED State'] == 'Off':
-        LEDControl['LED State'] = 'On'
+@app.route('/<device_id>/toggle', methods=['PUT'])
+def toggle(device_id):
+    if not device_id in deviceControl:
+        return ("Device " + device_id + " does not exist",404)
+    if deviceControl[device_id] == 'Off':
+        deviceControl[device_id] = 'On'
     else:
-        LEDControl['LED State'] = 'Off'
+        deviceControl[device_id] = 'Off'
     return ("Success",202)
 
-@app.route('/state', methods=['POST','GET'])
-def state():
-    return LEDControl['LED State']
+@app.route('/<device_id>/state', methods=['POST','GET'])
+def state(device_id):
+    if device_id == "~":
+        return json.dumps(deviceControl)
+    elif not device_id in deviceControl:
+        return ("Device " + device_id + " does not exist",404)
+    return deviceControl[device_id]
+
+@app.route('/deviceList', methods=['GET'])
+def deviceList():
+    return json.dumps([i for i in deviceControl.keys()])
+
 
 @app.route('/uploadImage', methods=['POST'])
 def uploadImage():
