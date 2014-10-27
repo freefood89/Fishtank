@@ -2,7 +2,15 @@ $(document).ready(function(){
     var alertbox = $('#check').button();
     var sensorbox = $('#sensor').button();
     var toggleButon = $('#toggle').button();
-    
+    var deviceOptions = $('#device_id');
+
+    $.getJSON("deviceList",function(data){
+        $.each(data, function(ind) {
+            console.log(data)
+            deviceOptions.append($("<option></option>").attr("value",data[ind]).text(data[ind]));
+        });
+    })
+
     setInterval(function(){
         if (alertbox[0].checked){
             alert('hello');
@@ -29,9 +37,10 @@ var options = {
 };
 $.plot($("#placeholder"),data,options);
 
-function ledToggle() {
+function deviceToggle() {
+    var selectedDevice = $("#device_id option:selected").text()
     $.ajax({
-        url:"toggle",
+        url: selectedDevice + "/toggle",
         type: 'PUT',
         success: function(response){
             alert( "Success!" );
