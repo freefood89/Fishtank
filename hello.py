@@ -48,18 +48,13 @@ def valid_login(username, password):
     print((username, password))
     return True
 
-@app.route('/toggle', methods=['POST'])
+@app.route('/toggle', methods=['PUT'])
 def toggle():
     if LEDControl['LED State'] == 'Off':
         LEDControl['LED State'] = 'On'
     else:
         LEDControl['LED State'] = 'Off'
-        return 'LED State is now whatever the fuck you wanted'
-
-@app.route('/feed', methods=['POST'])
-def feed():
-    if request.method == 'POST':
-        return toggle()
+    return ("Success",202)
 
 @app.route('/state', methods=['POST','GET'])
 def state():
