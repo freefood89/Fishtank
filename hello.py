@@ -3,10 +3,16 @@ import json
 import random
 import calendar
 import datetime
+import pymongo
 
 app = Flask(__name__)
 SENSORS = ['a','b','c']
 deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
+
+##Pymongo Interfacing
+client = pymongo.MongoClient()
+db = client.dummy_database
+collection = db.sensorData
 
 @app.route('/')
 def hello_world():
@@ -17,13 +23,18 @@ def sensor_data(sensor_id):
     data = {}
     numResults = 1
     params = request.args.to_dict()
-    if params['n'] and int(params['n'])>0 and int(params['n'])<21:
-        numResults = int(params['n'])
+    if not params['t']:
+        return 404
 
     now = calendar.timegm(datetime.datetime.now().timetuple())*1000
     print(now)
-    dates = [now - i*100000 for i in range(numResults)]
-    data[sensor_id] = [[dates[x],random.randint(1,10)] for x in range(numResults)]
+
+    data["oxygen"]=[]
+    for post in collection.find({"date":{"$lt":now,"$gt":now-2000000}}):
+        print(post)
+        data["oxygen"].append([post["date"],post["oxygen"]])
+        ##print(collection.find({"date":{"$lt":now,"$gt":now-2000000}}).count())
+
     print(data)
     return json.dumps(data)
 
