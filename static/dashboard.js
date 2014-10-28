@@ -16,7 +16,7 @@ $(document).ready(function(){
             alert('hello');
         }
         if (sensorbox[0].checked){
-            $.get("sensor/oxygen?n=10", function(data){
+            $.get("sensor/oxygen?t="+now.toString(), function(data){
                 $("p").text(JSON.stringify(data.oxygen));
                 $.plot($("#placeholder"),[data.oxygen],options);
             },"json");
