@@ -1,19 +1,22 @@
 import requests
 import os
 import time
+import picamera
 
 for x in range(1,100):
-    try:
-        os.system('raspistill -w 640 -h 480 -n -q 20 -e jpg -th none -o cam.jpg')
-    except:
-        print('failed to capture and store image')
+    with picamera.PiCamera() as camera:
+        camera.resolution=(640,480)
+        camera.capture('image.jpg')
 
     try:
-        with open('cam.jpg','rb') as picture:
-            r = requests.post('http://192.168.1.6/uploadImage',data=picture)
+        with open('image.jpg','rb') as picture:
+            r = requests.post('http://renomania.ddns.net/uploadImage',data=picture)
     except:
         print('upload failed')
     else:
         print('file uploaded')
+    t1 = time.time()
+    while time.time()-t1<10:
+        pass
 
         
