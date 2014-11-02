@@ -11,10 +11,10 @@ ser.write(bytes("C\r",'UTF-8'))
 line=""
 
 while True:
-	data = ser.read().decode('UTF-8')
-	if(data == "\r"):
-		print("Received:", line)
-		line=""
-	else:
-		line = line + data
+    data = ser.read().decode('UTF-8')
+    if(data == "\r"):
+        print("Received:", line)
+	line=""
+    else:
+	line = line + data
 		
