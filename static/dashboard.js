@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var alertbox = $('#check').button();
     var sensorbox = $('#sensor').button();
+    var imagebox = $('#image').button();
     var toggleButon = $('#toggle').button();
     var deviceOptions = $('#device_id');
 
@@ -17,9 +18,15 @@ $(document).ready(function(){
         }
         if (sensorbox[0].checked){
             $.get("sensor/oxygen?t="+now.toString(), function(data){
-                $("p").text(JSON.stringify(data.oxygen));
+                //$("p").text(JSON.stringify(data.oxygen));
                 $.plot($("#placeholder"),[data.oxygen],options);
             },"json");
+        }
+        if (imagebox[0].checked){
+            $.get('/recentImage', function(data){
+                    $('#RecentImage').attr("src",'/recentImage');
+                }
+            );
         }
     }, 3000);
 });
@@ -43,7 +50,7 @@ function deviceToggle() {
         url: selectedDevice + "/toggle",
         type: 'PUT',
         success: function(response){
-            alert( "Success!" );
+            //alert( "Success!" );
             }
         });
 };

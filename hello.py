@@ -92,7 +92,7 @@ def uploadImage():
 
 @app.route('/recentImage')
 def recentImage():
-     return send_file('test.jpeg', mimetype='image/gif')
+    return send_file('test.jpeg',cache_timeout=1)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
