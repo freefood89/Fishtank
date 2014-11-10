@@ -1,16 +1,23 @@
 $(document).ready(function(){
-    var alertbox = $('#check').button();
-    var sensorbox = $('#sensor').button();
-    var imagebox = $('#image').button();
+    var alertbox = $('#check');
+    var sensorbox = $('#sensor');
+    var imagebox = $('#image');
     var toggleButon = $('#toggle').button();
     var deviceOptions = $('#device_id');
+    var onoffDiv = jQuery('<div/>',{class:'onoffswitch', text:'Hello'}).html();
+    var inputType = jQuery('<input>',{type:'checkbox',name:'onoffswitch',class:'onoffswitch-checkbox',id:'image'});
+
+    //<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">
 
     $.getJSON("deviceList",function(data){
         $.each(data, function(ind) {
             console.log(data)
             deviceOptions.append($("<option></option>").attr("value",data[ind]).text(data[ind]));
+
+            $("aside").append('<h2>' + data[ind] + '</h2>' + '<div class="onoffswitch"> <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id= "' + data[ind] + '"><label class="onoffswitch-label" for="' + data[ind]+ '"><span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </div>');
+
         });
-    })
+    });
 
     setInterval(function(){
         if (alertbox[0].checked){
@@ -24,8 +31,8 @@ $(document).ready(function(){
         }
         if (imagebox[0].checked){
             $.get('/recentImage', function(data){
-                    $('#RecentImage').attr("src",'/recentImage');
-                }
+                $('#RecentImage').attr("src",'/recentImage');
+            }
             );
         }
     }, 3000);
@@ -51,9 +58,7 @@ function deviceToggle() {
         type: 'PUT',
         success: function(response){
             //alert( "Success!" );
-            }
-        });
+        }
+    });
 };
-
-
 
