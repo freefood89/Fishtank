@@ -9,7 +9,6 @@ body {
 }
 section{
     width: 640px;
-
     float: left;
 }
 article {
@@ -42,16 +41,15 @@ h2{
     aside{
         float: none;
         width: 100%;
-        max-width: 640px;
         margin: auto;
     }
     section{
         width:100%;
-        max-width: 640px;
         float: none;
         margin: auto;
     }
     #RecentImage{
+        width:100%;
     }
     #placeholder{
         margin: auto;
