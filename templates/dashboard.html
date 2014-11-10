@@ -15,47 +15,45 @@
     <header>
         <h1>Fishtank Dashboard</h1>
         <h2>1234567891123456789212345678931234567894123456789512345678961234567897<h2>
-    </header>
+        </header>
 
-    <section>
-        <article>
-            <div id="placeholder"></div>
-        </article>
-        <article>
-            <img id="RecentImage" src="http://renomania.ddns.net/recentImage">
-        </article>
-    </section>
-    <aside id='controls'>
-            <button onclick="deviceToggle()" id="toggle">Toggle the LED</button>
-            <select id="device_id"></select>
-    </aside>
-    <script src="static/dashboard.js"></script>
-    <h2>Alert every 3 seconds<h2>
-    <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="check">  <label class="onoffswitch-label" for="check">
-            <span class="onoffswitch-inner"></span>
-        <span class="onoffswitch-switch"></span>
-    </div>
+        <section>
+            <article>
+                <div id="placeholder"></div>
+            </article>
+            <article>
+                <img id="RecentImage" src="http://renomania.ddns.net/recentImage">
+            </article>
+        </section>
+        <aside>
+            alert
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="check">
+                <label class="onoffswitch-label" for="check">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </div>
+            update data
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sensor">
+                <label class="onoffswitch-label" for="sensor">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </div>
+            update image
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">
+                <label class="onoffswitch-label" for="image">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </div>
+        </aside>
+        <script src="static/dashboard.js"></script>
+            <script>
+                $(window).resize( function(){
+                    $('#placeholder').attr({width: '100px'});
+                });
 
-
-    <h2>Get Sensor Data every 3 seconds<h2>
-    <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sensor">  <label class="onoffswitch-label" for="sensor">
-            <span class="onoffswitch-inner"></span>
-        <span class="onoffswitch-switch"></span>
-    </div>
-
-    <h2>Get image data every 3 seconds<h2>
-    <div class="onoffswitch">
-    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">  <label class="onoffswitch-label" for="image">
-            <span class="onoffswitch-inner"></span>
-        <span class="onoffswitch-switch"></span>
-    </div>
-    <script>
-        $(window).resize( function(){
-            $('#placeholder').attr({width: '100px'});
-        });
-        
-    </script>
-</body>
-</html>
+            </script>
+        </body>
+        </html>

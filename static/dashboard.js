@@ -14,7 +14,7 @@ $(document).ready(function(){
             console.log(data)
             deviceOptions.append($("<option></option>").attr("value",data[ind]).text(data[ind]));
 
-            $("aside").append('<h2>' + data[ind] + '</h2>' + '<div class="onoffswitch"> <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id= "' + data[ind] + '"><label class="onoffswitch-label" for="' + data[ind]+ '"><span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </div>');
+            $("aside").append(data[ind] + '<div class="onoffswitch"> <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id= "' + data[ind] + '"><label class="onoffswitch-label" for="' + data[ind]+ '"><span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </div>');
 
         });
     });
