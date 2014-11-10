@@ -67,6 +67,7 @@
 </head>
 <body>
     <link rel="stylesheet" href="static/jquery-ui-1.11.2.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="static/onoffswitch.css">
     <script src="static/jquery-ui-1.11.2.custom/external/jquery/jquery.js"></script>
     <script src="static/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
     <script src="static/flot/jquery.flot.js"></script>
@@ -81,13 +82,35 @@
             <img id="RecentImage" src="http://renomania.ddns.net/recentImage">
         </article>    
     </section>
-    <aside>
-            <input type="checkbox" id="check"><label for="check">Alert every 3 seconds</label>
-            <input type="checkbox" id="sensor"><label for="sensor">Get data every 3 seconds</label>
-            <input type="checkbox" id="image"><label for="image">Get image every 3 seconds</label>
+    <aside id='controls'>
             <button onclick="deviceToggle()" id="toggle">Toggle the LED</button>
             <select id="device_id"></select>
     </aside>
     <script src="static/dashboard.js"></script>
+
+
+
+    <h2>Alert every 3 seconds<h2>
+    <div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="check">  <label class="onoffswitch-label" for="check">
+            <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </div>
+
+
+    <h2>Get Sensor Data every 3 seconds<h2>
+    <div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sensor">  <label class="onoffswitch-label" for="sensor">
+            <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </div>
+
+    <h2>Get image data every 3 seconds<h2>
+    <div class="onoffswitch">
+    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">  <label class="onoffswitch-label" for="image">
+            <span class="onoffswitch-inner"></span>
+        <span class="onoffswitch-switch"></span>
+    </div>
+
 </body>
 </html>
