@@ -4,28 +4,65 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <style>
-        body {
-            width: 640px;
+    aside{
+        float: left;
+        width: 100px;
+        margin: auto;
+    }
+    body {
+        width: 100%;
+        margin: auto;
+    }
+    section{
+        width: 640px;
+        margin: auto;
+        float: left;
+    }
+    article {
+        margin: auto;
+    }
+    label {
+        max-width: 200px;
+    }
+    h1{
+        font-align: center;
+        font-size: 3rem;
+    }
+    h2{
+        font-size: 1rem;
+    }
+    #RecentImage{
+        max-width:740px;
+        margin: auto;
+    }
+    #placeholder{
+        margin: auto;
+        width: 640px;
+        height: 240px;
+    }
+    @media(max-width: 100rem){
+        aside{
+            float: none;
+            width: 100%;
+            max-width: 640px;
             margin: auto;
         }
-        article {
+        section{
+            width:100%;
+            float: none;
+            margin: auto;
         }
-        label {
-            width: 300px;
-        }
-        h1{
-            font-align: center;
-        }
-        .centered{
-            width:640px;
-            display: block;
+        #RecentImage{
+            width:100%;
             margin: auto;
         }
         #placeholder{
             margin: auto;
-            width: 640px;
+            width: 100%;
             height: 240px;
         }
+
+    }
     </style>
 </head>
 <body>
@@ -34,27 +71,23 @@
     <script src="static/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
     <script src="static/flot/jquery.flot.js"></script>
     <script src="static/flot/jquery.flot.time.min.js"></script>
-    <div>
-        <h1>Fishtank Dashboard</h1>
-    </div>
+    <h1>Fishtank Dashboard</h1>
+    <h2>1234567891123456789212345678931234567894123456789512345678961234567897123456789812345678991234567890<h2>
     <section>
-    <article>
-        <div class="centered">
-        <input type="checkbox" id="check"><label for="check">Alert every 3 seconds</label>
-        <input type="checkbox" id="sensor"><label for="sensor">Get data every 3 seconds</label>
-        <input type="checkbox" id="image"><label for="image">Get image every 3 seconds</label>
-        <button onclick="deviceToggle()" id="toggle">Toggle the LED</button>
-        <select id="device_id"></select>
-            
-    </div>
-    </article>
         <article>
             <div id="placeholder"></div>
         </article>
-        <div>
-            <img class="centered" id="RecentImage" src="http://renomania.ddns.net/recentImage">
-        </div>    
-     </section>
+        <article>
+            <img id="RecentImage" src="http://renomania.ddns.net/recentImage">
+        </article>    
+    </section>
+    <aside>
+            <input type="checkbox" id="check"><label for="check">Alert every 3 seconds</label>
+            <input type="checkbox" id="sensor"><label for="sensor">Get data every 3 seconds</label>
+            <input type="checkbox" id="image"><label for="image">Get image every 3 seconds</label>
+            <button onclick="deviceToggle()" id="toggle">Toggle the LED</button>
+            <select id="device_id"></select>
+    </aside>
     <script src="static/dashboard.js"></script>
 </body>
 </html>
