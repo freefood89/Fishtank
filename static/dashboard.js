@@ -13,8 +13,7 @@ $(document).ready(function(){
         $.each(data, function(ind) {
             console.log(data)
             deviceOptions.append($("<option></option>").attr("value",data[ind]).text(data[ind]));
-
-            $("aside").append(data[ind] + '<div class="onoffswitch"> <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id= "' + data[ind] + '"><label class="onoffswitch-label" for="' + data[ind]+ '"><span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </div>');
+            $("aside").append(data[ind] + '<div class="onoffswitch"> <input type="checkbox" onchange=deviceToggle(' + this + ') name="onoffswitch" class="onoffswitch-checkbox" id= "' + data[ind] + '"><label class="onoffswitch-label" for="' + data[ind]+ '"><span class="onoffswitch-inner"></span> <span class="onoffswitch-switch"></span> </div>');
 
         });
     });
@@ -51,10 +50,11 @@ var options = {
 };
 $.plot($("#placeholder"),data,options);
 
-function deviceToggle() {
-    var selectedDevice = $("#device_id option:selected").text()
+function deviceToggle(deviceIndex) {
+    //var selectedDevice = $("#device_id option:selected").text()
+    var selectedDevice = $(deviceIndex).attr('id');
     $.ajax({
-        url: "sensors/"+selectedDevice + "/toggle",
+        url: "devices/"+selectedDevice + "/toggle",
         type: 'PUT',
         success: function(response){
             //alert( "Success!" );
