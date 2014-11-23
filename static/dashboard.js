@@ -9,7 +9,7 @@ $(document).ready(function(){
 
     //<input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">
 
-    $.getJSON("deviceList",function(data){
+    $.getJSON("devices",function(data){
         $.each(data, function(ind) {
             console.log(data)
             deviceOptions.append($("<option></option>").attr("value",data[ind]).text(data[ind]));
@@ -24,7 +24,7 @@ $(document).ready(function(){
             alert('hello');
         }
         if (sensorbox[0].checked){
-            $.get("sensor/oxygen?t="+now.toString(), function(data){
+            $.get("sensors/oxygen?t="+now.toString(), function(data){
                 //$("p").text(JSON.stringify(data.oxygen));
                 $.plot($("#placeholder"),[data.oxygen],options);
             },"json");
@@ -54,7 +54,7 @@ $.plot($("#placeholder"),data,options);
 function deviceToggle() {
     var selectedDevice = $("#device_id option:selected").text()
     $.ajax({
-        url: selectedDevice + "/toggle",
+        url: "sensors/"+selectedDevice + "/toggle",
         type: 'PUT',
         success: function(response){
             //alert( "Success!" );

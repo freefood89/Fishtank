@@ -18,7 +18,7 @@ collection = db.sensorData
 def hello_world():
     return 'Welcome to the Fish. Tank.!'
 
-@app.route('/sensor/<sensor_id>/')
+@app.route('/sensors/<sensor_id>')
 def sensor_data(sensor_id):
     data = {}
     numResults = 1
@@ -59,7 +59,7 @@ def valid_login(username, password):
     print((username, password))
     return True
 
-@app.route('/<device_id>/toggle', methods=['PUT'])
+@app.route('/devices/<device_id>/toggle', methods=['PUT'])
 def toggle(device_id):
     if not device_id in deviceControl:
         return ("Device " + device_id + " does not exist",404)
@@ -69,7 +69,7 @@ def toggle(device_id):
         deviceControl[device_id] = 'Off'
     return ("Success",202)
 
-@app.route('/<device_id>/state', methods=['POST','GET'])
+@app.route('/devices/<device_id>')
 def state(device_id):
     if device_id == "~":
         return json.dumps(deviceControl)
@@ -77,7 +77,7 @@ def state(device_id):
         return ("Device " + device_id + " does not exist",404)
     return deviceControl[device_id]
 
-@app.route('/deviceList', methods=['GET'])
+@app.route('/devices', methods=['GET'])
 def deviceList():
     return json.dumps([i for i in deviceControl.keys()])
 
