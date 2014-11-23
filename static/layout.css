@@ -2,6 +2,7 @@ aside{
     float: left;
     width: 200px;
     padding-left: 10px;
+    font-family:"Open Sans";
 }
 body {
     width: 850px;
@@ -20,9 +21,14 @@ label {
 h1{
     font-align: center;
     font-size: 3rem;
+    font-family:"Open Sans";
 }
 h2{
     font-size: 1rem;
+    font-family:"Open Sans";
+}
+p{
+    font-family:"Open Sans";
 }
 #RecentImage{
     margin: auto;
