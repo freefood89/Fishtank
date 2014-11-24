@@ -51,8 +51,10 @@ var options = {
 $.plot($("#placeholder"),data,options);
 
 function deviceToggle(deviceIndex) {
+
     //var selectedDevice = $("#device_id option:selected").text()
     var selectedDevice = $(deviceIndex).attr('id');
+    console.log(selectedDevice);
     $.ajax({
         url: "devices/"+selectedDevice + "/toggle",
         type: 'PUT',

@@ -14,9 +14,15 @@ client = pymongo.MongoClient()
 db = client.dummy_database
 collection = db.sensorData
 
+
 @app.route('/')
-def hello_world():
-    return 'Welcome to the Fish. Tank.!'
+def home_page():
+    return render_template('index.html')
+
+@app.route('/jekyll/<path:filename>')
+def hello_world(filename=None):
+    print(filename)
+    return render_template('jekyll/'+filename)
 
 @app.route('/sensors/<sensor_id>')
 def sensor_data(sensor_id):
