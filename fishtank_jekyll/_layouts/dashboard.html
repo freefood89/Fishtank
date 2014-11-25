@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+<body> 
+    <link rel="stylesheet" href="/static/jquery-ui-1.11.2.custom/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/onoffswitch.css">
+    <link rel="stylesheet" href="/static/layout.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <script src="/static/jquery-ui-1.11.2.custom/external/jquery/jquery.js"></script>
+    <script src="/static/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
+    <script src="/static/flot/jquery.flot.js"></script>
+    <script src="/static/flot/jquery.flot.time.min.js"></script>  
+    {% include header.html %}
+        <div class="page-content">
+      <div class="wrapper">
+    <div class="post">
+        <header class="post-header">
+            <h1 class="post-title">{{ page.title }}</h1>
+        </header>
+    <article class="post-content" id="switches">
+            <div class="switchbox">
+            alert
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="check">
+                <label class="onoffswitch-label" for="check">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </div>
+            </div>
+            <div class="switchbox">
+                update data
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sensor">
+                    <label class="onoffswitch-label" for="sensor">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </div>
+            </div>
+            <div class="switchbox">
+            update img
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">
+                <label class="onoffswitch-label" for="image">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </div>
+            </div>
+    </article>
+    <article class="post-content">
+        <div id="placeholder"></div>
+    </article>
+    <article class="post-content">
+        <div id="imagebox"><img id="RecentImage" src="/recentImage"></div>
+    </article>
+</div>
+      </div>
+    </div>
+        {% include footer.html %}
+        <script src="/static/dashboard.js"></script>
+            <script>
+                $(window).resize( function(){
+                    $('#placeholder').attr({width: '100px'});
+                });
+
+            </script>
+        </body>
+        </html>

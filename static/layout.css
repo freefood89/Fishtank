@@ -1,70 +1,24 @@
-aside{
-    float: left;
-    width: 200px;
-    padding-left: 10px;
-    font-family:"Open Sans";
-}
-body {
-    width: 850px;
-    margin: auto;
-}
-section{
-    width: 640px;
-    float: left;
-}
-article {
-    margin: auto;
-}
-label {
-    max-width: 200px;
-}
-h1{
-    font-align: center;
-    font-size: 3rem;
-    font-family:"Open Sans";
-}
-h2{
-    font-size: 1rem;
-    font-family:"Open Sans";
-}
-p{
-    font-family:"Open Sans";
-}
-#RecentImage{
-    margin: auto;
-}
 #placeholder{
-    margin: auto;
-    width: 640px;
     height: 240px;
+    width: ;
 }
-@media(max-width: 850px){
-    body{
-        width: 100%;
-    }
-    header{
-        width: 100%;
-        max-width: 640px;
-        margin: auto;
-    }
-    aside{
-        float: none;
-        width: 100%;
-        margin: auto;
-    }
-    section{
-        width:100%;
-        float: none;
-        margin: auto;
-    }
-    #RecentImage{
-        width:100%;
-    }
-    #placeholder{
-        margin: auto;
-        width: 100%;
-        height: 240px;
-    }
-
-
+#switches{
+    height: 60px;
+}
+#switches, #placeholder, #imagebox{
+  max-width: -webkit-calc(800px - (30px * 2));
+  max-width: calc(800px - (30px * 2));
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 30px;
+  padding-left: 30px; }
+  @media screen and (max-width: 800px) {
+    .wrapper {
+      max-width: -webkit-calc(800px - (30px));
+      max-width: calc(800px - (30px));
+      padding-right: 15px;
+      padding-left: 15px; } }
+.switchbox{
+    width: 95px;
+    float: left;
 }
