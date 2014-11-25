@@ -19,10 +19,21 @@ collection = db.sensorData
 def home_page():
     return render_template('index.html')
 
-@app.route('/jekyll/<path:filename>')
-def hello_world(filename=None):
-    print(filename)
-    return render_template('jekyll/'+filename)
+@app.route('/feed.xml')
+def xml_feed():
+    return render_template('feed.xml')
+
+@app.route('/about/')
+def html_about(filename=None):
+    return render_template('about/index.html')
+
+@app.route('/dashboard/')
+def show_dashboard():
+    return render_template('dashboard/index.html')
+
+@app.route('/posts/<path:filename>')
+def html_posts(filename=None):
+    return render_template('posts/'+filename)
 
 @app.route('/sensors/<sensor_id>')
 def sensor_data(sensor_id):
@@ -43,10 +54,6 @@ def sensor_data(sensor_id):
 
     print(data)
     return json.dumps(data)
-
-@app.route('/dashboard')
-def show_dashboard():
-    return render_template('dashboard.html')
 
 @app.route('/login', methods=['POST','GET'])
 def login():
