@@ -23,7 +23,7 @@ $(document).ready(function(){
             alert('hello');
         }
         if (sensorbox[0].checked){
-            $.get("sensors/oxygen?t="+now.toString(), function(data){
+            $.get("/sensors/oxygen?t="+now.toString(), function(data){
                 //$("p").text(JSON.stringify(data.oxygen));
                 $.plot($("#placeholder"),[data.oxygen],options);
             },"json");
