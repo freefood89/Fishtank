@@ -5,7 +5,7 @@ import calendar
 import datetime
 import pymongo
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='templates/static')
 SENSORS = ['a','b','c']
 deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
 
