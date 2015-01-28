@@ -6,9 +6,29 @@
 </description>
     <link>http://renomania.ddns.net/</link>
     <atom:link href="http://renomania.ddns.net/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Tue, 25 Nov 2014 02:14:23 -0500</pubDate>
-    <lastBuildDate>Tue, 25 Nov 2014 02:14:23 -0500</lastBuildDate>
+    <pubDate>Tue, 27 Jan 2015 22:38:57 -0500</pubDate>
+    <lastBuildDate>Tue, 27 Jan 2015 22:38:57 -0500</lastBuildDate>
     <generator>Jekyll v2.5.1</generator>
+    
+      <item>
+        <title>Fishtank Intro</title>
+        <description>&lt;p&gt;Hello, &lt;/p&gt;
+
+&lt;p&gt;Welcome to fish tank, a remote controlled and monitored fishtank. I created this project to enable me to feed and monitor my fish remotely during vacation or work trips. I eventually hope to create a tool that can control essential aspects of the fish’s environment such as light, temperature, food, and water quality while learning to use new software and hardware such as &lt;a href=&quot;http://flask.pocoo.org/&quot;&gt;flask&lt;/a&gt; and &lt;a href=&quot;http://www.raspberrypi.org/&quot;&gt;raspberry pi&lt;/a&gt;. Fishtank’s software is available on &lt;a href=&quot;https://github.com/freefood89/Fishtank&quot;&gt;github&lt;/a&gt; as well.&lt;/p&gt;
+
+&lt;p&gt;Stay tuned for updates and thanks for visiting!&lt;/p&gt;
+
+</description>
+        <pubDate>Sun, 07 Dec 2014 12:00:00 -0500</pubDate>
+        <link>http://renomania.ddns.net/posts/update/2014/12/07/fishtank-intro.html</link>
+        <guid isPermaLink="true">http://renomania.ddns.net/posts/update/2014/12/07/fishtank-intro.html</guid>
+        
+        
+        <category>posts</category>
+        
+        <category>update</category>
+        
+      </item>
     
       <item>
         <title>Welcome to Fishtank!</title>

@@ -5,7 +5,7 @@ import calendar
 import datetime
 import pymongo
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='templates/static')
 SENSORS = ['a','b','c']
 deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
 
@@ -108,4 +108,4 @@ def recentImage():
     return send_file('test.jpeg',cache_timeout=1)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run(debug=True)
