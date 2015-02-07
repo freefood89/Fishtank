@@ -309,6 +309,9 @@ pre {
       .post-content h4 {
         font-size: 18px; } }
 
+#RecentImage {
+  width: 100%; }
+
 /**
  * Syntax highlighting styles
  */
