@@ -312,6 +312,10 @@ pre {
 #RecentImage {
   width: 100%; }
 
+.switchbox {
+  display: block;
+  float: left; }
+
 /**
  * Syntax highlighting styles
  */
@@ -454,6 +458,8 @@ pre {
 .onoffswitch {
   position: relative;
   width: 90px;
+  margin-bottom: 10px;
+  margin-right: 10px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none; }
