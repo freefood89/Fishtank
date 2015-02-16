@@ -21,7 +21,7 @@
     <script src="/static/jquery-ui-1.11.2.custom/external/jquery/jquery.js"></script>
     <script src="/static/jquery-ui-1.11.2.custom/jquery-ui.min.js"></script>
     -->
-    <script src="/static/js/jquery-ui-1.11.1.min.js"></script>
+    <script src="/static/js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
     <header class="site-header">
 
@@ -91,7 +91,7 @@
             <div class="switchbox">
                 {{ button }}
                 <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ button }}">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ button }}" onchange=deviceToggle({{ button }})>
                     <label class="onoffswitch-label" for="{{ button }}">
                     <span class="onoffswitch-inner"></span>
                     <span class="onoffswitch-switch"></span>
@@ -167,7 +167,7 @@
 
 </footer>
 
-        <script src="/static/dashboard.js"></script>
+        <script src="/static/js/dashboard.js"></script>
             <script>
 google.load('visualization', '1', {packages: ['corechart']});
     google.setOnLoadCallback(drawChart);
