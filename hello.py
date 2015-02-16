@@ -29,7 +29,7 @@ def html_about(filename=None):
 
 @app.route('/dashboard/')
 def show_dashboard():
-    return render_template('dashboard/index.html')
+    return render_template('dashboard/index.html', buttons=deviceControl.keys())
 
 @app.route('/posts/<path:filename>')
 def html_posts(filename=None):

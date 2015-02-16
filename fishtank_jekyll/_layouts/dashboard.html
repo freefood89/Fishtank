@@ -29,14 +29,28 @@
                 </div>
             </div>
             <div class="switchbox">
-            Live Images
-            <div class="onoffswitch">
-                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">
-                <label class="onoffswitch-label" for="image">
-                <span class="onoffswitch-inner"></span>
-                <span class="onoffswitch-switch"></span>
+                Live Images
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">
+                    <label class="onoffswitch-label" for="image">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </div>
             </div>
+            {% raw %}
+            {% for button in buttons %}
+            <div class="switchbox">
+                {{ button }}
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ button }}">
+                    <label class="onoffswitch-label" for="{{ button }}">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </div>
             </div>
+            {% endfor %}
+            {% endraw %}
+        </div>
     </article>
     <article class="post-content">
         <div id="ex2"></div>
