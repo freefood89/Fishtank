@@ -11,3 +11,4 @@ github_username:  freefood89
 # Build settings
 markdown: kramdown
 destination: "../templates"
+keep_files: ["static/js"]
