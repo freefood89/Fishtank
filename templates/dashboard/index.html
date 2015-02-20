@@ -67,43 +67,43 @@
         <header class="post-header">
             <h1 class="post-title">Dashboard</h1>
         </header>
+    </div>
     <article class="post-content" id="switches">
-            <div class="switchbox">
-                Live Data
-                <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sensor">
-                    <label class="onoffswitch-label" for="sensor">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </div>
+        <div class="switchbox">
+            Live Data
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="sensor">
+                <label class="onoffswitch-label" for="sensor">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
             </div>
-            <div class="switchbox">
-                Live Images
-                <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">
-                    <label class="onoffswitch-label" for="image">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </div>
-            </div>
-            
-            {% for button in buttons %}
-            <div class="switchbox">
-                {{ button }}
-                <div class="onoffswitch">
-                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ button }}" onchange=deviceToggle({{ button }})>
-                    <label class="onoffswitch-label" for="{{ button }}">
-                    <span class="onoffswitch-inner"></span>
-                    <span class="onoffswitch-switch"></span>
-                </div>
-            </div>
-            {% endfor %}
-            
         </div>
+        <div class="switchbox">
+            Live Images
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="image">
+                <label class="onoffswitch-label" for="image">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </div>
+        </div>
+        
+        {% for button in buttons %}
+        <div class="switchbox">
+            {{ button }}
+            <div class="onoffswitch">
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{ button }}" onchange=deviceToggle({{ button }})>
+                <label class="onoffswitch-label" for="{{ button }}">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </div>
+        </div>
+        {% endfor %}
+        
     </article>
     <article class="post-content">
-        <!-- <div id="ex2"></div> -->
-    </article>
+<!--         <div><div id="ex2"></div></div>
+ -->    </article>
     <article class="post-content">
         <div id="imagebox"><img id="RecentImage" src="/recentImage"></div>
     </article>
