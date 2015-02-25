@@ -5,7 +5,9 @@ if not ser.isOpen():
 	print('opening serial port')
 	ser.open()
 
-for i in range(10):
+while True:
+	s = input('<')
+	ser.write((s+'\n').encode());
 	print(ser.readline().strip().decode('utf-8'))
 	# print('.')
 
