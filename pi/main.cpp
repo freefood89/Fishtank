@@ -80,7 +80,8 @@ void loop()
           Serial.print("PORT ");
           Serial.print(targetDevice->port, DEC);
           Serial.print(" - set to ");
-          Serial.println(String(buffer).substring(indexOfSpace+1));
+          Serial.println(String(buffer).substring(indexOfSpace+1).toInt(),DEC);
+          servo.write(String(buffer).substring(indexOfSpace+1).toInt());
         }
         else{
           Serial.println("Device Not Found");
