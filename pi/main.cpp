@@ -77,8 +77,10 @@ void loop()
       if(indexOfSpace>-1){
         targetDevice = getDevice(String(buffer).substring(0,indexOfSpace));
         if(targetDevice){
-          Serial.print("PORT: ");
-          Serial.println(targetDevice->port, DEC);
+          Serial.print("PORT ");
+          Serial.print(targetDevice->port, DEC);
+          Serial.print(" - set to ");
+          Serial.println(String(buffer).substring(indexOfSpace+1));
         }
         else{
           Serial.println("Device Not Found");
