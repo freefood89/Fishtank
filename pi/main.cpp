@@ -1,32 +1,29 @@
 #include <Arduino.h>
 #include <Servo.h>
 
-Servo servo;  // create servo object to control a servo 
-                // a maximum of eight servo objects can be created 
+Servo servo1;  // create servo object to control a servo 
+Servo servo2;  // a maximum of eight servo objects can be created 
 
 struct Device{
   String name;
-  char value;
-  char port;
+  String type;
+  byte value;
+  byte port;
 };
 
-int NUM_SETTABLES = 4;
-int NUM_GETTABLES = 2;
+int NUM_DEVICES = 6;
 
 int indexOfSpace;
 Device* targetDevice;
 char buffer[20];
 
-Device settables[]={
-  (Device){"servo_1",0,9},
-  (Device){"servo_2",0,10},
-  (Device){"led_1",0,11},
-  (Device){"led_2",0,13}
-};
-
-Device gettables[]={
-  (Device){"sensor_1",0,0},
-  (Device){"sensor_2",0,1}
+Device devices[]={
+  (Device){"servo_1","servo",0,9},
+  (Device){"servo_2","servo",0,10},
+  (Device){"led_1","pwm",0,5},
+  (Device){"led_2","pwm",0,6},
+  (Device){"sensor_1","sensor",0,0},
+  (Device){"sensor_2","sensor",0,1}
 };
 
 String input;
@@ -34,17 +31,16 @@ String input;
 void setup() 
 { 
   Serial.begin(9600);
-  servo.attach(9);  // attaches the servo on pin 9 to the servo object 
+  servo1.attach(9);  // attaches the servo on pin 9 to the servo object 
+  servo2.attach(10);
+  pinMode(5, OUTPUT);
+  pinMode(6, OUTPUT);
 } 
 
 void printDevices(){
-  for(int i=0; i<NUM_SETTABLES; i++){
-    Serial.print(settables[i].name);
-    Serial.print(", ");
-  }
-  for(int i=0; i<NUM_GETTABLES; i++){
-    Serial.print(gettables[i].name);
-    if(i < NUM_GETTABLES - 1){
+  for(int i=0; i<NUM_DEVICES; i++){
+    Serial.print(devices[i].name);
+    if(i < NUM_DEVICES - 1){
       Serial.print(", ");
     }
   }
@@ -52,14 +48,9 @@ void printDevices(){
 }
 
 Device* getDevice(String name){
-  for(int i=0; i<NUM_SETTABLES; i++){
-    if(settables[i].name.equals(name)){
-      return &settables[i];
-    }
-  }
-  for(int i=0; i<NUM_GETTABLES; i++){
-    if(gettables[i].name.equals(name)){
-      return &gettables[i];
+  for(int i=0; i<NUM_DEVICES; i++){
+    if(devices[i].name.equals(name)){
+      return &devices[i];
     }
   }
   return NULL;
@@ -81,7 +72,15 @@ void loop()
           Serial.print(targetDevice->port, DEC);
           Serial.print(" - set to ");
           Serial.println(String(buffer).substring(indexOfSpace+1).toInt(),DEC);
-          servo.write(String(buffer).substring(indexOfSpace+1).toInt());
+          if(String("servo_1").equals(targetDevice->name)){
+            servo1.write(String(buffer).substring(indexOfSpace+1).toInt());
+          }
+          else if(String("servo_2").equals(targetDevice->name)){
+            servo2.write(String(buffer).substring(indexOfSpace+1).toInt());
+          }
+          else if(String("pwm").equals(targetDevice->type)){
+            analogWrite((int)(targetDevice->port),String(buffer).substring(indexOfSpace+1).toInt());
+          }
         }
         else{
           Serial.println("Device Not Found");
