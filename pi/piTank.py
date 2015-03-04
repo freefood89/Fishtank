@@ -1,4 +1,4 @@
-
+import picamera
 import RPIO
 import time
 import requests
@@ -23,7 +23,7 @@ def exit_gracefully(signum, frame):
 def update_LEDs(state):
     for key in state:
         if key not in LEDMap or state[key] not in RPIOMap:
-            print('could not map')
+            #print('could not map')
             break
         #print(key,state[key])
         #print(LEDMap[key],RPIOMap[state[key]])
@@ -46,7 +46,18 @@ if __name__ == '__main__':
         except Exception as e:
             print(e)
         else:
-            print('Updating LEDs')
+            #print('Updating LEDs')
             update_LEDs(leds)
+        with picamera.PiCamera() as camera:
+            camera.resolution=(640,480)
+            camera.capture('image.jpg')
+        try:
+            with open('image.jpg','rb') as picture:
+                r = requests.post('http://renomania.ddns.net/uploadImage',data=picture)
+        except:
+            print('upload failed')
+        else:
+            print('file uploaded')
+        
         while time.time() - t1 < 3:
             pass
