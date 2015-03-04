@@ -7,7 +7,7 @@ import sys
 import serial
 
 DeviceMap = {'led1':'led_1', 'led2':'led_2'}
-OutputMap = {'On': 200, 'Off': 0, 'left'}
+OutputMap = {'On': 200, 'Off': 0, 'left':0, 'right':180}
 
 def exit_gracefully(signum, frame):
     signal.signal(signal.SIGINT, original_sigint)
