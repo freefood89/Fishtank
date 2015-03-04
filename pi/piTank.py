@@ -47,7 +47,7 @@ if __name__ == '__main__':
     while True:
         t1 = time.time()
         try:
-            r = requests.get('http://renomania.ddns.net/~/state')
+            r = requests.get('http://renomania.ddns.net/devices/~')
             devices = json.loads(r.text)
         except Exception as e:
             print(e)
