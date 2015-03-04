@@ -1,6 +1,6 @@
 import serial
 
-ser = serial.Serial('/dev/tty.usbmodem1441', 9600)
+ser = serial.Serial(port='/dev/ttyACM0', baudrate=9600)
 if not ser.isOpen():
 	print('opening serial port')
 	ser.open()
