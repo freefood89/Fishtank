@@ -7,7 +7,7 @@ import pymongo
 
 app = Flask(__name__, static_folder='templates/static')
 SENSORS = ['a','b','c']
-deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
+deviceControl = { "led1" : "Off" , "led2" : "Off", "servo1": "left"};
 
 ##Pymongo Interfacing
 client = pymongo.MongoClient()
