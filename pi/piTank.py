@@ -6,9 +6,9 @@ import signal
 import sys
 import serial
 
-DeviceMap = {'led1':'led_1', 'led2':'led_2'}
+DeviceMap = {'led1':'led_1', 'led2':'led_2','servo1':'servo_1'}
 OutputMap = {'On': 127, 'Off': 0, 'left':0, 'right':180}
-ser = serial.Serial('/dev/ttyACM0',9600)
+ser = serial.Serial('/dev/ttyACM0',timeout=2,baudrate=9600)
 # ser = serial.Serial('/dev/tty.usbmodem1441', 9600)
 time.sleep(3)
 
@@ -35,7 +35,7 @@ def update_Devices(state):
             # print('led_1 127'==serialOut)
             print(serialOut)
             ser.write((serialOut+'\n').encode())
-            print(ser.readline(timeout=2).strip().decode('utf-8'))
+            print(ser.readline().strip().decode('utf-8'))
 
 def log(message):
     output = message #add time stamp
