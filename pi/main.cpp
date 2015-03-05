@@ -63,6 +63,9 @@ void loop()
     if(String(buffer).equals(String("list all"))){
       printDevices();
     }
+    else if(String(buffer).equals(String("test"))){
+      Serial.println("I'm here");
+    }
     else{
       indexOfSpace = String(buffer).indexOf(' ');
       if(indexOfSpace>-1){
