@@ -61,16 +61,16 @@ if __name__ == '__main__':
             print('Updating LEDs')
             print(devices)
             update_Devices(devices)
-        # with picamera.PiCamera() as camera:
-        #     camera.resolution=(640,480)
-        #     camera.capture('image.jpg')
-        # try:
-        #     with open('image.jpg','rb') as picture:
-        #         r = requests.post('http://renomania.ddns.net/uploadImage',data=picture)
-        # except:
-        #     print('upload failed')
-        # else:
-        #     print('file uploaded')
+        with picamera.PiCamera() as camera:
+            camera.resolution=(640,480)
+            camera.capture('image.jpg')
+        try:
+            with open('image.jpg','rb') as picture:
+                r = requests.post('http://renomania.ddns.net/uploadImage',data=picture)
+        except:
+            print('upload failed')
+        else:
+            print('file uploaded')
         
-        # while time.time() - t1 < 3:
-        #     pass
+        while time.time() - t1 < 3:
+            pass
