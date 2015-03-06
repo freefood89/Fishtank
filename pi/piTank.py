@@ -1,4 +1,4 @@
-# import picamera
+import picamera
 import time
 import requests
 import json
@@ -6,8 +6,11 @@ import signal
 import sys
 import serial
 
-DeviceMap = {'led1':'led_1', 'led2':'led_2','servo1':'servo_1'}
-OutputMap = {'On': 127, 'Off': 0, 'left':0, 'right':180}
+DeviceMap = {   
+    'led1': {'name':'led_1', 'On':200, 'Off':0},
+    'led2': {'name':'led_2', 'On':200, 'Off':0},
+    'servo1':{'name':'servo_1', 'On':127, 'Off':0}
+    }
 ser = serial.Serial('/dev/ttyACM0',timeout=2,baudrate=9600)
 # ser = serial.Serial('/dev/tty.usbmodem1441', 9600)
 time.sleep(3)
@@ -27,11 +30,12 @@ def exit_gracefully(signum, frame):
         print('quitting')
         sys.exit(1)
 
-def update_Devices(state):
-    for led in state:
-        if led in DeviceMap and state[led] in OutputMap:
+def update_Devices(deviceStates):
+    for device in deviceMap:
+        if device in deviceStates and deviceStates[device] in DeviceMap[device]:
             # a = input()
-            serialOut = ' '.join([DeviceMap[led], str(OutputMap[state[led]])])
+            targetState = deviceStates[device]
+            serialOut = ' '.join([DeviceMap[device]['name'], str(DeviceMap[device][targetState])])
             # print('led_1 127'==serialOut)
             print(serialOut)
             ser.write((serialOut+'\n').encode())
@@ -72,5 +76,5 @@ if __name__ == '__main__':
         else:
             print('file uploaded')
         
-        while time.time() - t1 < 3:
+        while time.time() - t1 < 2:
             pass
