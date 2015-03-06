@@ -1,6 +1,6 @@
 ARDUINO_DIR	= /usr/share/arduino
 TARGET		= servoTest
-ARDUINO_LIBS	=
+ARDUINO_LIBS	= Servo
 MCU		= atmega328p
 F_CPU		= 16000000
 ARDUINO_PORT	= /dev/ttyACM0

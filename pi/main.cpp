@@ -7,8 +7,8 @@ Servo servo2;  // a maximum of eight servo objects can be created
 struct Device{
   String name;
   String type;
-  byte value;
-  byte port;
+  int value;
+  int port;
 };
 
 int NUM_DEVICES = 6;
@@ -34,7 +34,9 @@ void setup()
   servo1.attach(9);  // attaches the servo on pin 9 to the servo object 
   servo2.attach(10);
   pinMode(5, OUTPUT);
+  analogWrite(5,0);
   pinMode(6, OUTPUT);
+  analogWrite(6,0);
 } 
 
 void printDevices(){
@@ -82,7 +84,7 @@ void loop()
             servo2.write(String(buffer).substring(indexOfSpace+1).toInt());
           }
           else if(String("pwm").equals(targetDevice->type)){
-            analogWrite((int)(targetDevice->port),String(buffer).substring(indexOfSpace+1).toInt());
+            analogWrite(targetDevice->port,String(buffer).substring(indexOfSpace+1).toInt());
           }
         }
         else{
