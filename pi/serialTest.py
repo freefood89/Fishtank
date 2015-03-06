@@ -10,7 +10,7 @@ time.sleep(3)
 print('starting')
 while True:
 	s = input('<')
-	# ser.write(b'test')
+	ser.write(s.encode())
 	print(ser.readline().strip().decode('utf-8'))
 	# print('.')
 
