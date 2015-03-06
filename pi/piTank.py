@@ -7,8 +7,8 @@ import sys
 import serial
 
 DeviceMap = {   
-    'led1': {'name':'led_1', 'On':200, 'Off':0},
-    'led2': {'name':'led_2', 'On':200, 'Off':0},
+    'led1': {'name':'led_1', 'On':180, 'Off':0},
+    'led2': {'name':'led_2', 'On':180, 'Off':0},
     'servo1':{'name':'servo_1', 'On':127, 'Off':0}
     }
 ser = serial.Serial('/dev/ttyACM0',timeout=2,baudrate=9600)
@@ -31,7 +31,7 @@ def exit_gracefully(signum, frame):
         sys.exit(1)
 
 def update_Devices(deviceStates):
-    for device in deviceMap:
+    for device in DeviceMap:
         if device in deviceStates and deviceStates[device] in DeviceMap[device]:
             # a = input()
             targetState = deviceStates[device]
