@@ -3,3 +3,4 @@ __pycache__/
 test.jpeg
 .sass-cache/
 templates/feed.xml
+.swp
