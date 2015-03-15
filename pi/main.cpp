@@ -27,6 +27,8 @@ Device devices[]={
 };
 
 String input;
+int sensor1val = 0;
+int sensor2val = 0;
 
 void setup() 
 { 
@@ -73,10 +75,6 @@ void loop()
       if(indexOfSpace>-1){
         targetDevice = getDevice(String(buffer).substring(0,indexOfSpace));
         if(targetDevice){
-          Serial.print("PORT ");
-          Serial.print(targetDevice->port, DEC);
-          Serial.print(" - set to ");
-          Serial.println(String(buffer).substring(indexOfSpace+1).toInt(),DEC);
           if(String("servo_1").equals(targetDevice->name)){
             servo1.write(String(buffer).substring(indexOfSpace+1).toInt());
           }
@@ -86,6 +84,14 @@ void loop()
           else if(String("pwm").equals(targetDevice->type)){
             analogWrite(targetDevice->port,String(buffer).substring(indexOfSpace+1).toInt());
           }
+          else if(String("sensor").equals(targetDevice->type)){
+            sensor1val = analogRead(targetDevice->port,String(buffer).substring(indexOfSpace+1).toInt());
+            Serial.print(sensor1val,DEC);
+          }
+          Serial.print("PORT ");
+          Serial.print(targetDevice->port, DEC);
+          Serial.print(" - set to ");
+          Serial.println(String(buffer).substring(indexOfSpace+1).toInt(),DEC);
         }
         else{
           Serial.println("Device Not Found");
