@@ -39,6 +39,7 @@ void setup()
   analogWrite(5,0);
   pinMode(6, OUTPUT);
   analogWrite(6,0);
+
 } 
 
 void printDevices(){
@@ -85,7 +86,7 @@ void loop()
             analogWrite(targetDevice->port,String(buffer).substring(indexOfSpace+1).toInt());
           }
           else if(String("sensor").equals(targetDevice->type)){
-            sensor1val = analogRead(targetDevice->port,String(buffer).substring(indexOfSpace+1).toInt());
+            sensor1val = analogRead(targetDevice->port);
             Serial.print(sensor1val,DEC);
           }
           Serial.print("PORT ");
