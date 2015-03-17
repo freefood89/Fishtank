@@ -48,6 +48,8 @@ void setup()
 
 } 
 
+St
+
 void printDevices(){
   for(int i=0; i<NUM_DEVICES; i++){
     Serial.print(devices[i].name);
@@ -71,34 +73,26 @@ void loop()
 {
   if(0 < Serial.readBytesUntil('\n',buffer,20)){
     // Serial.println(String(buffer)+"<");
-
-    if(String(buffer).equals(String("list all"))){
-      printDevices();
+    numArgs = sscanf(buffer,"%s %s %d",cmd,target,&targetValue);
+    if(numArgs==3 && strcmp(cmd,"set")){
+      targetDevice = getDevice(String(target));
+      if(targetDevice){
+        Serial.println("Found device in question");
+      }
+      else
+        Serial.println("Error: Device Not Found");
     }
-    else if(String(buffer).equals(String("ping"))){
-      Serial.println("hello");
+    else if(numArgs==2 && strcmp(cmd,"get")){
+      targetDevice = getDevice(String(target));
+      if(targetDevice){
+        Serial.println("Found device in question");
+      }
+      else
+        Serial.println("Error: Device Not Found");
     }
     else{
-      numArgs = sscanf(buffer,"%s %s %d",cmd,target,&targetValue);
-      if(numArgs==3 && String(cmd).equals(String("set"))){
-        targetDevice = getDevice(String(target));
-        if(targetDevice){
-          Serial.println("Found device in question");
-        }
-        else
-          Serial.println("Error: Device Not Found");
-      }
-      else if(numArgs==2 && String(cmd).equals(String("get"))){
-        targetDevice = getDevice(String(target));
-        if(targetDevice){
-          Serial.println("Found device in question");
-        }
-        else
-          Serial.println("Error: Device Not Found");
-      }
-      else{
-        Serial.println("Error: Invalid Command");
-      }
+      Serial.println("Error: Invalid Command");
+    }
       // indexOfSpace = String(buffer).indexOf(' ');
       // if(indexOfSpace>-1){
       //   targetDevice = getDevice(String(buffer).substring(0,indexOfSpace));
@@ -129,7 +123,6 @@ void loop()
       //   Serial.print("Invalid: ");
       //   Serial.println(buffer);
       // }      
-    }
     for(int i=0; i<20; i++){
       buffer[i] = '\0';
     }
