@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <Servo.h>
+#include <stdio.h>
 
 Servo servo1;  // create servo object to control a servo 
 Servo servo2;  // a maximum of eight servo objects can be created 
@@ -29,6 +30,11 @@ Device devices[]={
 String input;
 int sensor1val = 0;
 int sensor2val = 0;
+
+char cmd [5];
+char target [10];
+int targetValue = 0;
+int numArgs = 0;
 
 void setup() 
 { 
@@ -65,43 +71,64 @@ void loop()
 {
   if(0 < Serial.readBytesUntil('\n',buffer,20)){
     // Serial.println(String(buffer)+"<");
+
     if(String(buffer).equals(String("list all"))){
       printDevices();
     }
-    else if(String(buffer).equals(String("test"))){
-      Serial.println("I'm here");
+    else if(String(buffer).equals(String("ping"))){
+      Serial.println("hello");
     }
     else{
-      indexOfSpace = String(buffer).indexOf(' ');
-      if(indexOfSpace>-1){
-        targetDevice = getDevice(String(buffer).substring(0,indexOfSpace));
+      numArgs = sscanf(buffer,"%s %s %d",cmd,target,&targetValue);
+      if(numArgs==3 && String(cmd).equals(String("set"))){
+        targetDevice = getDevice(String(target));
         if(targetDevice){
-          if(String("servo_1").equals(targetDevice->name)){
-            servo1.write(String(buffer).substring(indexOfSpace+1).toInt());
-          }
-          else if(String("servo_2").equals(targetDevice->name)){
-            servo2.write(String(buffer).substring(indexOfSpace+1).toInt());
-          }
-          else if(String("pwm").equals(targetDevice->type)){
-            analogWrite(targetDevice->port,String(buffer).substring(indexOfSpace+1).toInt());
-          }
-          else if(String("sensor").equals(targetDevice->type)){
-            sensor1val = analogRead(targetDevice->port);
-            Serial.print(sensor1val,DEC);
-          }
-          Serial.print("PORT ");
-          Serial.print(targetDevice->port, DEC);
-          Serial.print(" - set to ");
-          Serial.println(String(buffer).substring(indexOfSpace+1).toInt(),DEC);
+          Serial.println("Found device in question");
         }
-        else{
-          Serial.println("Device Not Found");
+        else
+          Serial.println("Error: Device Not Found");
+      }
+      else if(numArgs==2 && String(cmd).equals(String("get"))){
+        targetDevice = getDevice(String(target));
+        if(targetDevice){
+          Serial.println("Found device in question");
         }
+        else
+          Serial.println("Error: Device Not Found");
       }
       else{
-        Serial.print("Invalid: ");
-        Serial.println(buffer);
-      }      
+        Serial.println("Error: Invalid Command");
+      }
+      // indexOfSpace = String(buffer).indexOf(' ');
+      // if(indexOfSpace>-1){
+      //   targetDevice = getDevice(String(buffer).substring(0,indexOfSpace));
+      //   if(targetDevice){
+      //     if(String("servo_1").equals(targetDevice->name)){
+      //       servo1.write(String(buffer).substring(indexOfSpace+1).toInt());
+      //     }
+      //     else if(String("servo_2").equals(targetDevice->name)){
+      //       servo2.write(String(buffer).substring(indexOfSpace+1).toInt());
+      //     }
+      //     else if(String("pwm").equals(targetDevice->type)){
+      //       analogWrite(targetDevice->port,String(buffer).substring(indexOfSpace+1).toInt());
+      //     }
+      //     else if(String("sensor").equals(targetDevice->type)){
+      //       sensor1val = analogRead(targetDevice->port);
+      //       Serial.print(sensor1val,DEC);
+      //     }
+      //     Serial.print("PORT ");
+      //     Serial.print(targetDevice->port, DEC);
+      //     Serial.print(" - set to ");
+      //     Serial.println(String(buffer).substring(indexOfSpace+1).toInt(),DEC);
+      //   }
+      //   else{
+      //     Serial.println("Device Not Found");
+      //   }
+      // }
+      // else{
+      //   Serial.print("Invalid: ");
+      //   Serial.println(buffer);
+      // }      
     }
     for(int i=0; i<20; i++){
       buffer[i] = '\0';
