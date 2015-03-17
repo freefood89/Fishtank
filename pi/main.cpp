@@ -60,7 +60,7 @@ void printDevices(){
 
 Device* getDevice(String name){
   for(int i=0; i<NUM_DEVICES; i++){
-    if(devices[i].name.equals(name)){
+    if(0==strcmp(devices[i].name,name)){
       return &devices[i];
     }
   }
