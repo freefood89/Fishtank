@@ -48,8 +48,6 @@ void setup()
 
 } 
 
-St
-
 void printDevices(){
   for(int i=0; i<NUM_DEVICES; i++){
     Serial.print(devices[i].name);
