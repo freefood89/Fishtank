@@ -72,7 +72,7 @@ void loop()
   if(0 < Serial.readBytesUntil('\n',buffer,20)){
     // Serial.println(String(buffer)+"<");
     numArgs = sscanf(buffer,"%s %s %d",cmd,target,&targetValue);
-    if(numArgs==3 && strcmp(cmd,"set")){
+    if(numArgs==3 && strcmp(cmd,"set")==0){
       targetDevice = getDevice(String(target));
       if(targetDevice){
         Serial.println("Found device in question");
@@ -80,7 +80,7 @@ void loop()
       else
         Serial.println("Error: Device Not Found");
     }
-    else if(numArgs==2 && strcmp(cmd,"get")){
+    else if(numArgs==2 && strcmp(cmd,"get")==0){
       targetDevice = getDevice(String(target));
       if(targetDevice){
         Serial.println("Found device in question");
