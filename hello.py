@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template , send_file
+from flask import Flask, request, render_template , send_file, make_response
 import json
 import random
 import calendar
@@ -8,7 +8,7 @@ import pymongo
 app = Flask(__name__, static_folder='templates/static')
 SENSORS = ['a','b','c']
 deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
-
+sillyCache = dict()
 ##Pymongo Interfacing
 client = pymongo.MongoClient()
 db = client.dummy_database
@@ -98,13 +98,19 @@ def deviceList():
 @app.route('/uploadImage', methods=['POST'])
 def uploadImage():
     data = request.get_data()
-    newFileByteArray = bytearray(data)
+    sillyCache['recentImage'] = bytearray(data)
     with open('test.jpeg','wb') as newFile:
             newFile.write(data)
     return 'Image Sent!'
 
 @app.route('/recentImage')
 def recentImage():
+    if 'recentImage' in sillyCache:
+        print('image found in cache!')
+        response = make_response(sillyCache['recentImage'])
+        response.headers['Content-Type'] = 'image/jpeg'
+        response.headers['Content-Disposition'] = 'attachment; filename=recentImage.jpg'
+        return response
     return send_file('test.jpeg',cache_timeout=1)
 
 if __name__ == '__main__':
