@@ -1,9 +1,10 @@
-from flask import Flask, request, render_template , send_file, make_response
+from flask import Flask, request, render_template ,send_file, make_response, logging
 import json
 import random
 import calendar
 import datetime
 import pymongo
+import sys
 
 app = Flask(__name__, static_folder='templates/static')
 SENSORS = ['a','b','c']
@@ -106,7 +107,7 @@ def uploadImage():
 @app.route('/recentImage')
 def recentImage():
     if 'recentImage' in sillyCache:
-        print('image found in cache!')
+        logger.debug('Image found in cache')
         response = make_response(sillyCache['recentImage'])
         response.headers['Content-Type'] = 'image/jpeg'
         response.headers['Content-Disposition'] = 'attachment; filename=recentImage.jpg'
@@ -114,4 +115,8 @@ def recentImage():
     return send_file('test.jpeg',cache_timeout=1)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    if 'debug' in sys.argv:
+        logger = logging.create_logger(app)
+        app.run(debug=True)
+    else:
+        app.run()
