@@ -11,30 +11,21 @@ SENSORS = ['a','b','c']
 deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
 sillyCache = dict()
 ##Pymongo Interfacing
-client = pymongo.MongoClient()
-db = client.dummy_database
-collection = db.sensorData
-
+try:
+    client = pymongo.MongoClient()
+    db = client.dummy_database
+    collection = db.sensorData
+except Exception as e:
+    logger.error('Could not connect to database')
+    exit(1)
 
 @app.route('/')
 def home_page():
     return render_template('index.html')
 
-@app.route('/feed.xml')
-def xml_feed():
-    return render_template('feed.xml')
-
-@app.route('/about/')
-def html_about(filename=None):
-    return render_template('about/index.html')
-
 @app.route('/dashboard/')
 def show_dashboard():
     return render_template('dashboard/index.html', buttons=deviceControl.keys())
-
-@app.route('/posts/<path:filename>')
-def html_posts(filename=None):
-    return render_template('posts/'+filename)
 
 @app.route('/sensors/<sensor_id>')
 def sensor_data(sensor_id):
