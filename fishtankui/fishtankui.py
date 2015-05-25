@@ -80,7 +80,7 @@ def deviceList():
     return json.dumps([i for i in deviceControl.keys()])
 
 
-@app.route('/uploadImage', methods=['POST'])
+@app.route('/images', methods=['POST'])
 def uploadImage():
     data = request.get_data()
     sillyCache['recentImage'] = bytearray(data)
@@ -88,7 +88,7 @@ def uploadImage():
             newFile.write(data)
     return 'Image Sent!'
 
-@app.route('/recentImage')
+@app.route('/images')
 def recentImage():
     if 'recentImage' in sillyCache:
         logger.debug('Image found in cache')
