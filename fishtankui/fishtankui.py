@@ -3,7 +3,6 @@ import json
 import calendar
 import datetime
 
-# import logging
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder='templates/static')
