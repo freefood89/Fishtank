@@ -1,7 +1,13 @@
-from flask import Flask, request, render_template ,send_file, make_response, logging
+from flask import Flask, request, render_template ,send_file, make_response, logging, jsonify
+import flask
 import json
 import calendar
 import datetime
+import io
+import os.path
+import re
+from PIL import Image
+from fishtankui.exceptions import ApiException
 
 logger = logging.getLogger(__name__)
 
@@ -10,6 +16,12 @@ app = Flask(__name__, static_folder='templates/static')
 SENSORS = ['a','b','c']
 deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
 sillyCache = dict()
+
+@app.errorhandler(ApiException)
+def error_handler(error):
+    response = jsonify(error.to_dict())
+    response.status_code = error.status_code
+    return response
 
 @app.route('/')
 def home_page():
@@ -79,24 +91,45 @@ def state(device_id):
 def deviceList():
     return json.dumps([i for i in deviceControl.keys()])
 
+@app.route('/images/<filename>')
+def getImage(filename):
+    if filename in sillyCache:
+        logger.debug('Image found in cache')
+        response = make_response(sillyCache[filename])
+        response.headers['Content-Type'] = 'image/jpeg'
+        response.headers['Content-Disposition'] = 'attachment; filename={}'.format(filename)
+        return response
+    try:
+        return send_file(filename,cache_timeout=1)
+    except FileNotFoundError:
+        raise ApiException('Image Not Found', 404)
 
 @app.route('/images', methods=['POST'])
-def uploadImage():
-    data = request.get_data()
-    sillyCache['recentImage'] = bytearray(data)
-    with open('test.jpeg','wb') as newFile:
-            newFile.write(data)
-    return 'Image Sent!'
+def handleImage():
+    if 'Content-Type' not in request.headers:
+        raise ApiException('Missing Required Headers', 400, culprit='Content-Type not specified')
+    elif request.headers['Content-Type'].split('/')[0] != 'image':
+        raise ApiException('Invalid Required Headers', 400, culprit='Content-Type invalid')
+    
+    if 'Content-Disposition' not in request.headers:
+        raise ApiException('Missing Required Headers', 400, culprit='Content-Disposition not specified')
+    elif re.search(request.headers['Content-Disposition'], r'filename=(\w+\.\w+)'):
+        raise ApiException('Invalid Required Headers', 400, culprit='Content-Disposition invalid')
 
-@app.route('/images')
-def recentImage():
-    if 'recentImage' in sillyCache:
-        logger.debug('Image found in cache')
-        response = make_response(sillyCache['recentImage'])
-        response.headers['Content-Type'] = 'image/jpeg'
-        response.headers['Content-Disposition'] = 'attachment; filename=recentImage.jpg'
-        return response
-    return send_file('test.jpeg',cache_timeout=1)
+    request.headers['Content-Type']
+
+    try:
+        image = Image.open(io.BytesIO(bytearray(request.get_data())))
+    except IOError:
+        raise ApiException('Image Not Created', 400, culprit='Corrupt Image')
+
+    logger.debug(request.headers['Content-Disposition'])
+    # sillyCache[] = image
+    try:
+        image.save('test.jpg')
+        return flask.Response(status=201)
+    except Exception as e:
+        raise ApiException('Image Not Created', 401)
 
 if __name__=='__main__':
     app.run(port=5000, debug=True)
