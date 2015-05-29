@@ -126,7 +126,7 @@ def handleImage():
     logger.debug(request.headers['Content-Disposition'])
     # sillyCache[] = image
     try:
-        image.save('test.jpg')
+        image.save('test.jpg') #use filename later
         return flask.Response(status=201)
     except Exception as e:
         raise ApiException('Image Not Created', 401)
