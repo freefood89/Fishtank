@@ -5,6 +5,7 @@ import calendar
 import datetime
 import io
 import os.path
+import os
 import re
 from PIL import Image
 from fishtankui.exceptions import ApiException
@@ -91,7 +92,7 @@ def state(device_id):
 def deviceList():
     return json.dumps([i for i in deviceControl.keys()])
 
-@app.route('/images/<filename>')
+@app.route('/images/<path:filename>')
 def getImage(filename):
     if filename in sillyCache:
         logger.debug('Image found in cache')
@@ -99,6 +100,7 @@ def getImage(filename):
         response.headers['Content-Type'] = 'image/jpeg'
         response.headers['Content-Disposition'] = 'attachment; filename={}'.format(filename)
         return response
+    
     try:
         return send_file(filename,cache_timeout=1)
     except FileNotFoundError:
