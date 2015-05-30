@@ -19,7 +19,6 @@ app = Flask(__name__, static_folder='templates/static')
 UPLOAD_FOLDER='fishtankui/uploads'
 SENSORS = ['a','b','c']
 deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
-sillyCache = dict()
 
 @app.errorhandler(ApiException)
 def error_handler(error):
@@ -97,13 +96,6 @@ def deviceList():
 
 @app.route('/images/<path:filename>')
 def getImage(filename):
-    if filename in sillyCache:
-        logger.debug('Image found in cache')
-        response = make_response(sillyCache[filename])
-        response.headers['Content-Type'] = 'image/jpeg'
-        response.headers['Content-Disposition'] = 'attachment; filename={}'.format(filename)
-        return response
-    
     try:
         return send_file(os.path.join('uploads',filename),cache_timeout=1)
     except FileNotFoundError:
@@ -128,7 +120,6 @@ def handleImage():
 
     filename = re.search(r'filename=(\w+\.\w+)',request.headers['Content-Disposition']).group(1)
     logger.debug('Saving: {}'.format(filename))
-    # sillyCache[] = image
     
     image.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename))) #use filename later
     return flask.Response(status=201)
