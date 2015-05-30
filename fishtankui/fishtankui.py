@@ -10,10 +10,13 @@ import re
 from PIL import Image
 from fishtankui.exceptions import ApiException
 
+from werkzeug import secure_filename
+
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder='templates/static')
 
+UPLOAD_FOLDER='fishtankui/uploads'
 SENSORS = ['a','b','c']
 deviceControl = { "led1" : "Off" , "led2" : "Off", "led3" : "Off"};
 sillyCache = dict()
@@ -102,7 +105,7 @@ def getImage(filename):
         return response
     
     try:
-        return send_file(filename,cache_timeout=1)
+        return send_file(os.path.join('uploads',filename),cache_timeout=1)
     except FileNotFoundError:
         raise ApiException('Image Not Found', 404)
 
@@ -118,20 +121,17 @@ def handleImage():
     elif re.search(request.headers['Content-Disposition'], r'filename=(\w+\.\w+)'):
         raise ApiException('Invalid Required Headers', 400, culprit='Content-Disposition invalid')
 
-    request.headers['Content-Type']
-
     try:
         image = Image.open(io.BytesIO(bytearray(request.get_data())))
     except IOError:
         raise ApiException('Image Not Created', 400, culprit='Corrupt Image')
 
-    logger.debug(request.headers['Content-Disposition'])
+    filename = re.search(r'filename=(\w+\.\w+)',request.headers['Content-Disposition']).group(1)
+    logger.debug('Saving: {}'.format(filename))
     # sillyCache[] = image
-    try:
-        image.save('test.jpg') #use filename later
-        return flask.Response(status=201)
-    except Exception as e:
-        raise ApiException('Image Not Created', 401)
+    
+    image.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename))) #use filename later
+    return flask.Response(status=201)
 
 if __name__=='__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True) 
