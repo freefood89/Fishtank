@@ -6,7 +6,10 @@ RUN apt-get update && apt-get install -y \
 	git \
 	vim
 
-RUN git clone https://github.com/freefood89/fishtank ~/Fishtank
+RUN mkdir /Fishtank
+WORKDIR /Fishtank
+
+RUN git clone https://github.com/freefood89/fishtank .
 
 RUN pip3 install \
 	flask \
@@ -14,4 +17,4 @@ RUN pip3 install \
 	pymongo \
 	tornado
 
-CMD python3 ~/Fishtank/app.py --log=debug
+CMD python3 app.py --log=debug
