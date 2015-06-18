@@ -11,10 +11,4 @@ WORKDIR /Fishtank
 
 RUN git clone https://github.com/freefood89/fishtank .
 
-RUN pip3 install \
-	flask \
-	pillow \
-	pymongo \
-	tornado
-
-CMD python3 app.py --log=debug
+RUN pip3 install -r requirements.txt
