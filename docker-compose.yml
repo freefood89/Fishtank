@@ -7,3 +7,8 @@ web:
          - mongo
 mongo:
         image: mongo
+		volumes_from: [data]
+
+data:
+		image: mongo
+		volumes: /data/db
