@@ -9,6 +9,6 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir /Fishtank
 WORKDIR /Fishtank
 
-RUN git clone https://github.com/freefood89/fishtank .
+RUN git clone -b docker-compose https://github.com/freefood89/fishtank .
 
 RUN pip3 install -r requirements.txt

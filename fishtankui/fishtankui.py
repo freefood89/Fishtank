@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template ,send_file, make_response, logging, jsonify
+from flask.json import JSONEncoder
 import flask
 import json
 import calendar
@@ -7,14 +8,30 @@ import io
 import os.path
 import os
 import re
+from bson.objectid import ObjectId
 from PIL import Image
 from fishtankui.exceptions import ApiException
+from pymongo import MongoClient
 
 from werkzeug import secure_filename
 
 logger = logging.getLogger(__name__)
 
+class CustomJSONEncoder(JSONEncoder):
+    def default(self, o):
+        try:
+            if isinstance(o, ObjectId):
+                return str(o)
+            iterable = iter(o)
+        except TypeError:
+            pass
+        else:
+            return list(iterable)
+        return JSONEncoder.default(self, o)
+
+db = MongoClient().dev_nessie
 app = Flask(__name__, static_folder='templates/static')
+app.json_encoder(CustomJSONEncoder)
 
 UPLOAD_FOLDER='fishtankui/uploads'
 SENSORS = ['a','b','c']
@@ -123,6 +140,11 @@ def handleImage():
     
     image.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename))) #use filename later
     return flask.Response(status=201)
+
+@app.route('/mongo')
+def dummy_data():
+    print(flask.jsonify(db.bills.find_one({},{'_id':0})))
+    return flask.jsonify(db.bills.find_one({},{'_id':0}))
 
 if __name__=='__main__':
     app.run(port=5000, debug=True) 
