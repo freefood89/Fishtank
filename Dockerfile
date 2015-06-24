@@ -6,9 +6,10 @@ RUN apt-get update && apt-get install -y \
 	git \
 	vim
 
-RUN mkdir /Fishtank
-WORKDIR /Fishtank
+RUN mkdir /fishtank
+VOLUME /fishtank
+WORKDIR /fishtank
+EXPOSE 8080
 
-RUN git clone https://github.com/freefood89/fishtank .
-
-RUN pip3 install -r requirements.txt
+CMD pip3 install -r requirements.txt && \
+	python3 app.py --log=debug
