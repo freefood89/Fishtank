@@ -9,7 +9,7 @@ import os
 import re
 from PIL import Image
 from fishtankui.exceptions import ApiException
-
+from werkzeug.utils import safe_join
 from werkzeug import secure_filename
 
 logger = logging.getLogger(__name__)
@@ -97,7 +97,7 @@ def deviceList():
 @app.route('/images/<path:filename>')
 def getImage(filename):
     try:
-        return send_file(os.path.join('uploads',filename),cache_timeout=1)
+        return send_file(safe_join('uploads',filename),cache_timeout=1)
     except FileNotFoundError:
         raise ApiException('Image Not Found', 404)
 
